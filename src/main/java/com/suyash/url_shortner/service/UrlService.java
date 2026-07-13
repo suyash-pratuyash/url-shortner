@@ -1,6 +1,7 @@
 package com.suyash.url_shortner.service;
 
 import com.suyash.url_shortner.entity.Url;
+import com.suyash.url_shortner.exception.UrlNotFoundException;
 import com.suyash.url_shortner.repository.UrlRepository;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class UrlService {
         Optional<Url> urlOptional = urlRepository.findByShortCode(shortCode);
 
         if (urlOptional.isEmpty()) {
-            throw new RuntimeException("Short code not found");
+            throw new UrlNotFoundException("Short code not found");
         }
 
         return urlOptional.get().getOriginalUrl();
